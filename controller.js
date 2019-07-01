@@ -2,19 +2,19 @@ function TodoAppController(name, containerEl) {
   this.name = name;
   this.model = new TodoApp(name);
   this.view = new TodoAppView(containerEl);
-  //
+  //initStateApp
   this.initStateApp();
   // initEventListeners
   this.initEventListeners();
 }
 
 TodoAppController.prototype.initStateApp = function() {
-  console.log("reset start");
+  // console.log("reset start");
   this.model.filterItems();
   this.view.stateFooter(this.model.items.length);
   this.view.showList(this.model.visibleItems);
   this.view.showCounter(this.model.countRemainingItem());
-  console.log("reset finish");
+  // console.log("reset finish");
 };
 
 TodoAppController.prototype.initEventListeners = function() {
