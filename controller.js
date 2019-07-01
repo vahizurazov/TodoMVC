@@ -121,7 +121,7 @@ TodoAppController.prototype.editItemTodo = function(e) {
 TodoAppController.prototype.updateItem = function(e) {
   const id = this.view.getTodoElementId(e.target);
   const index = this.model.getIndexItemId(id);
-  if (e.target.value === this.model.items[index].label) return;
+  // if (e.target.value === this.model.items[index].label) return;
   if (e.type === "keyup" && e.keyCode != 13) return;
   this.model.editItem(index, e.target.value);
   e.target.removeEventListener("blur", e => this.updateItem(e));
@@ -134,4 +134,3 @@ TodoAppController.prototype.updateItem = function(e) {
 
 var control = new TodoAppController("myApp", document.querySelector("body"));
 
-console.log(control);
