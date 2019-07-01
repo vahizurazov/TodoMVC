@@ -20,7 +20,7 @@ TodoApp.prototype.addItem = function(label, id) {
 };
 
 TodoApp.prototype.editItem = function(itemIndex, params) {
-  const { label, checked } = params;
+  // const { label, checked } = params;
 
   if (typeof params === "string" && params !== this.items[itemIndex].label) {
     if (params === "") {
@@ -28,9 +28,9 @@ TodoApp.prototype.editItem = function(itemIndex, params) {
     }
     this.items[itemIndex].label = params;
   }
-  if (typeof checked === "boolean") {
-    this.items[itemIndex].checked = checked;
-  }
+  // if (typeof checked === "boolean") {
+  //   this.items[itemIndex].checked = checked;
+  // }
   this.saveState();
 };
 
