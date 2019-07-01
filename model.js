@@ -5,9 +5,6 @@ function TodoApp(name, id) {
   this.visibleItems = [];
   this.currentFilter = "all";
 }
-console.log('test commit');
-
-
 function TodoItem(label, id) {
   this.label = label;
   this.checked = false;
