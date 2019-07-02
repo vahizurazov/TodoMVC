@@ -14,6 +14,8 @@ TodoAppView.prototype.initSelectors = function() {
   this.todoClearCompleted = this.containerEl.querySelector(".clear-completed");
 };
 
+
+
 TodoAppView.prototype.createItem = function(value, check = false, id) {
   let newTodo = document.createElement("li");
   newTodo.innerHTML =

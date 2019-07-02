@@ -16,7 +16,6 @@ class TodoApp {
   }
 
   editItem(itemIndex, params) {
-    const { label, checked } = params;
     if (typeof params === "string" && params !== this.items[itemIndex].label) {
       if (params === "") {
         return this.removeItem(itemIndex);

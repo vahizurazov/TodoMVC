@@ -14,7 +14,7 @@ TodoAppController.prototype.initStateApp = function() {
   this.view.stateFooter(this.model.items.length);
   this.view.showList(this.model.visibleItems);
   this.view.showCounter(this.model.countRemainingItem());
-  // console.log("reset finish");
+  this.toggleState()
 };
 
 TodoAppController.prototype.initEventListeners = function() {
@@ -49,12 +49,17 @@ TodoAppController.prototype.removeTodo = function(e) {
   let id = this.view.getTodoElementId(e.target);
   let index = this.model.getIndexItemId(id);
   this.model.removeItem(index);
-  // this.model.filterItems();
-  // this.view.showList(this.model.visibleItems);
-  // this.view.stateFooter(this.model.items.length);
-  // this.view.showCounter(this.model.countRemainingItem());
   this.initStateApp();
 };
+TodoAppController.prototype.toggleState = function(){
+  let state = this.model.visibleItems.every(el => el.checked);
+  // !state ? this.view.todoToggleAll.checked : !this.view.todoToggleAll.checked
+    if(!state){
+      this.view.todoToggleAll.checked = false
+    }else{
+      this.view.todoToggleAll.checked = true
+    }
+  }
 
 TodoAppController.prototype.checkItem = function(e) {
   if (e.target.className !== "toggle") return;
@@ -62,17 +67,14 @@ TodoAppController.prototype.checkItem = function(e) {
   let index = this.model.getIndexItemId(id);
   this.model.check(index);
   this.view.changeStateItem(id, this.model.items[index].checked);
-  // this.model.filterItems();
-  // this.view.showList(this.model.visibleItems);
-  // this.view.showCounter(this.model.countRemainingItem());
+  this.toggleState(e)
   this.initStateApp();
 };
+
 
 TodoAppController.prototype.toggleAll = function(e) {
   if (e.target.className !== "toggle-all") return;
   this.model.swichAll();
-  // this.model.filterItems();
-  // this.view.showList(this.model.visibleItems);
   this.initStateApp();
   if (this.model.visibleItems.length > 1) {
     this.view.showCounter(this.model.countRemainingItem());
