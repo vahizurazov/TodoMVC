@@ -9,12 +9,11 @@ function TodoAppController(name, containerEl) {
 }
 
 TodoAppController.prototype.initStateApp = function() {
-  // console.log("reset start");
   this.model.filterItems();
   this.view.stateFooter(this.model.items.length);
   this.view.showList(this.model.visibleItems);
   this.view.showCounter(this.model.countRemainingItem());
-  this.toggleState()
+  this.toggleState();
 };
 
 TodoAppController.prototype.initEventListeners = function() {
@@ -36,10 +35,6 @@ TodoAppController.prototype.initEventListeners = function() {
 
 TodoAppController.prototype.enterTodo = function(e) {
   this.model.addItem(e.target.value, this.model.createItemId());
-  // this.model.filterItems();
-  // this.view.showList(this.model.visibleItems);
-  // this.view.stateFooter(this.model.items.length);
-  // this.view.showCounter(this.model.countRemainingItem());
   this.initStateApp();
   e.target.value = "";
 };
@@ -51,15 +46,14 @@ TodoAppController.prototype.removeTodo = function(e) {
   this.model.removeItem(index);
   this.initStateApp();
 };
-TodoAppController.prototype.toggleState = function(){
+TodoAppController.prototype.toggleState = function() {
   let state = this.model.visibleItems.every(el => el.checked);
-  // !state ? this.view.todoToggleAll.checked : !this.view.todoToggleAll.checked
-    if(!state){
-      this.view.todoToggleAll.checked = false
-    }else{
-      this.view.todoToggleAll.checked = true
-    }
+  if (!state) {
+    this.view.todoToggleAll.checked = false;
+  } else {
+    this.view.todoToggleAll.checked = true;
   }
+};
 
 TodoAppController.prototype.checkItem = function(e) {
   if (e.target.className !== "toggle") return;
@@ -67,11 +61,9 @@ TodoAppController.prototype.checkItem = function(e) {
   let index = this.model.getIndexItemId(id);
   this.model.check(index);
   this.view.changeStateItem(id, this.model.items[index].checked);
-  this.toggleState(e)
+  this.toggleState(e);
   this.initStateApp();
 };
-
-
 TodoAppController.prototype.toggleAll = function(e) {
   if (e.target.className !== "toggle-all") return;
   this.model.swichAll();
@@ -81,8 +73,8 @@ TodoAppController.prototype.toggleAll = function(e) {
   }
 };
 TodoAppController.prototype.swichSelect = function(text) {
-  if(text === ''){
-    text = 'all'
+  if (text === "") {
+    text = "all";
   }
   this.model.filterItems(text);
   this.view.showList(this.model.visibleItems);
@@ -90,7 +82,11 @@ TodoAppController.prototype.swichSelect = function(text) {
 };
 TodoAppController.prototype.selectedAll = function(e) {
   if (e.target.tagName !== "A") return;
-  let includeText = e.target.hash.toString().split('').splice(2,15).join('')
+  let includeText = e.target.hash
+    .toString()
+    .split("")
+    .splice(2, 15)
+    .join("");
   switch (includeText) {
     case "completed":
       this.swichSelect(includeText);
@@ -106,11 +102,6 @@ TodoAppController.prototype.selectedAll = function(e) {
 TodoAppController.prototype.clearCompleted = function() {
   this.model.removeCompleted();
   this.initStateApp();
-
-  // this.model.filterItems();
-  // this.view.stateFooter(this.model.items.length);
-  // this.view.showList(this.model.visibleItems);
-  // this.view.showCounter(this.model.countRemainingItem());
 };
 
 TodoAppController.prototype.editItemTodo = function(e) {
@@ -126,16 +117,12 @@ TodoAppController.prototype.editItemTodo = function(e) {
 TodoAppController.prototype.updateItem = function(e) {
   const id = this.view.getTodoElementId(e.target);
   const index = this.model.getIndexItemId(id);
-  // if (e.target.value === this.model.items[index].label) return;
   if (e.type === "keyup" && e.keyCode != 13) return;
   this.model.editItem(index, e.target.value);
   e.target.removeEventListener("blur", e => this.updateItem(e));
   e.target.removeEventListener("keyup", e => this.updateItem(e));
-  // this.model.filterItems();
-  // this.view.stateFooter(this.model.items.length);
-  // this.view.showList(this.model.visibleItems);
+
   this.initStateApp();
 };
 
 var control = new TodoAppController("myApp", document.querySelector("body"));
-
