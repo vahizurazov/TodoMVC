@@ -27,9 +27,6 @@ TodoApp.prototype.editItem = function(itemIndex, params) {
     }
     this.items[itemIndex].label = params;
   }
-  // if (typeof checked === "boolean") {
-  //   this.items[itemIndex].checked = checked;
-  // }
   this.saveState();
 };
 
@@ -89,10 +86,14 @@ TodoApp.prototype.getIndexItemId = function(id) {
 };
 
 TodoApp.prototype.saveState = function() {
+  try {
   return localStorage.setItem(`todo-${this.name}`, JSON.stringify(this.items));
+} catch (e) {console.log('ERROR') }
 };
 TodoApp.prototype.restoreState = function() {
+  try{
   return JSON.parse(localStorage.getItem(`todo-${this.name}`));
+} catch (e) {console.log('ERROR') }
 };
 
 

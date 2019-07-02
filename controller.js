@@ -79,13 +79,16 @@ TodoAppController.prototype.toggleAll = function(e) {
   }
 };
 TodoAppController.prototype.swichSelect = function(text) {
+  if(text === ''){
+    text = 'all'
+  }
   this.model.filterItems(text);
   this.view.showList(this.model.visibleItems);
   this.view.changeStateButton(text);
 };
 TodoAppController.prototype.selectedAll = function(e) {
   if (e.target.tagName !== "A") return;
-  let includeText = e.toElement.innerText.toLowerCase();
+  let includeText = e.target.hash.toString().split('').splice(2,15).join('')
   switch (includeText) {
     case "completed":
       this.swichSelect(includeText);
