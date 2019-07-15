@@ -76,7 +76,7 @@ TodoApp.prototype.countRemainingItem = function() {
 };
 
 TodoApp.prototype.createItemId = function() {
-  return new Date().getTime();
+  return Math.floor(+new Date() + Math.random() * 0xffffffff).toString(36)
 };
 
 TodoApp.prototype.getIndexItemId = function(id) {
